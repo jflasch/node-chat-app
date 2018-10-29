@@ -23,6 +23,8 @@ io.on('connection', (socket) => {
         var room = params.room.toLowerCase();
         if (!isRealString(params.name) || !isRealString(room)) {
             return callback('Name and room name are required');
+        } else if (users.getUserList(room).includes(params.name)) {
+            return callback('This user name has already been taken');
         }
         socket.join(room);
         console.log(room);
